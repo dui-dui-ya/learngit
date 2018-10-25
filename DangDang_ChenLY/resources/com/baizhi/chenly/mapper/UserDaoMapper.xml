@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.chenly.dao.UserDao">
+
+	<!--根据email密码查询  -->
+	<select id="selectByEmailAndPassword" resultType="User">
+		select user_id as userId,user_email as userEmail,user_password as userPassword,
+			user_name as userName, user_status as userStatus
+		from d_user
+		where user_email=#{userEmail} and user_password=#{userPassword}	
+	</select>
+	<!--添加用户信息  -->
+	<insert id="insertUser">
+		insert into d_user
+		values(d_user_seq.nextval,#{user.userEmail},#{user.userPassword},
+			#{user.userName},#{user.userStatus,jdbcType=INTEGER})
+	</insert>
+	<update id="updateUser">
+		update d_user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="user.userStatus!=null">user_status=#{user.userStatus}</if>
+		</trim>
+		where user_id=#{user.userId}
+	</update>
+</mapper>

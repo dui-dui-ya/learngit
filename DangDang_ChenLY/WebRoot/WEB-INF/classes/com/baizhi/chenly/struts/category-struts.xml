@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="category" extends="struts-default" namespace="/category">
+		<action name="findAllCate" class="com.baizhi.chenly.action.CategoryAction" method="findAllCate">
+			<result name="category" type="dispatcher">/main/category.jsp</result>
+		</action>
+		<action name="findBookByCateId" class="com.baizhi.chenly.action.CategoryAction" method="findBookByCateId">
+			<result name="book_list" type="dispatcher">/main/book_list.jsp</result>
+		</action>
+	</package>
+	<!-- <package name="user" extends="struts-default" namespace="/user">
+		登录
+		<action name="login" class="com.baizhi.wcg.action.UserAction" method="doLogin">
+			<result name="loginok">/main/main.jsp</result>
+		</action>
+	</package> -->
+</struts>

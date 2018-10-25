@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<include file="com/baizhi/chenly/struts/address-struts.xml"></include>
+	<package name="user" extends="struts-default" namespace="/user">
+		<action name="user_*" class="com.baizhi.chenly.action.UserAction" method="{1}">
+			<result name="login" type="redirect">/user/login_form.jsp</result>
+			<result name="main" type="dispatcher">/main/main.jsp</result>
+			<result name="register_form" type="dispatcher">/user/register_form.jsp</result>
+			<result name="EmailSecurity" type="chain">
+				<param name="namespace">/user</param>
+				<param name="actionName">user_EmailSecurity</param>
+			</result>
+			<result name="verify_form" type="dispatcher">/user/verify_form.jsp</result>
+			<result name="register_ok" type="dispatcher">/user/register_ok.jsp</result>
+			<result name="findAllAddress" type="redirectAction">
+				<param name="namespace">/address</param>
+				<param name="actionName">address_findAllAddress</param>
+			</result>
+			<!-- 配置验证码 -->
+			<!-- <result type="stream"></result> -->
+			<!-- <result type="stream"></result> -->
+			<!-- 安全退出 -->
+			<!-- <result name="main"></result> -->
+		</action>
+		<action name="Security" class="com.baizhi.chenly.action.UserAction" method="Security">
+			<result type="stream"></result>
+		</action>
+		
+	</package>
+	<!-- <package name="user" extends="struts-default" namespace="/user">
+		登录
+		<action name="login" class="com.baizhi.wcg.action.UserAction" method="doLogin">
+			<result name="loginok">/main/main.jsp</result>
+		</action>
+	</package> -->
+</struts>

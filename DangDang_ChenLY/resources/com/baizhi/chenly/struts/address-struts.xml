@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="address" extends="struts-default" namespace="/address">
+		<action name="address_*" class="com.baizhi.chenly.action.AddressAction" method="{1}">
+			<result name="address_form" type="dispatcher">/order/address_form.jsp</result>
+			<result name="address_form2" type="dispatcher">/order/address_form.jsp</result>
+			<result name="login" type="redirect">/user/login_form.jsp</result>
+		</action>
+	</package>
+	<!-- <package name="user" extends="struts-default" namespace="/user">
+		登录
+		<action name="login" class="com.baizhi.wcg.action.UserAction" method="doLogin">
+			<result name="loginok">/main/main.jsp</result>
+		</action>
+	</package> -->
+</struts>

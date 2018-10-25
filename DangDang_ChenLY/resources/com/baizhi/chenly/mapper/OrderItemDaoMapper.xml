@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.chenly.dao.OrderItemDao">
+	<resultMap  id="itemMap" type="OrderItem">
+		<id column="shopId" property="shopId"/>
+		<result column="shopNum" property="shopNum"/>
+		<result column="totalPrice" property="totalPrice"/>
+		<association property="book" javaType="Book">
+			<id column="shopBookId" property="bookId"/>
+		</association>
+		<association property="order" javaType="Order">
+			<id column="shopOrdId" property="orderId"/>
+		</association>
+		
+	</resultMap>
+	<insert id="insertOrderItem">
+		<selectKey keyProperty="shopId" resultType="int" order="BEFORE">
+			select d_orderItem_seq.nextval from dual
+		</selectKey>
+		insert into d_orderItem
+		values(#{shopId},#{orderItem.book.bookId},#{orderItem.order.orderId,jdbcType=INTEGER},
+			#{orderItem.shopNum},#{orderItem.totalPrice})
+	</insert>
+	<delete id="deleteOrderItemById">
+		delete from d_orderItem
+		where shop_id = #{shopId}
+	</delete>
+	<!-- 查询所有订单项 -->
+	
+	<select id="selectAllOrderItem" resultMap="itemMap">
+		select shop_id as shopId,shop_bookid as shopBookId,shop_ordId as shopOrdId,
+			shop_num as shopNum,total_price as totalPrice
+		from d_orderItem
+		where shop_ordid = #{orderId}
+	</select>
+	<!-- 根据shopId查询一个订单 -->
+	<select id="selectOrderItemById" resultMap="itemMap">
+		select shop_id as shopId,shop_bookid as shopBookId,shop_ordId as shopOrdId,
+			shop_num as shopNum,total_price as totalPrice
+		from d_orderItem
+		where shop_id = #{shopId}
+	</select>
+</mapper>
+<!-- <mapper namespace="com.baizhi.dao.EmpDao">
+	<resultMap type="Emp" id="empMap">
+		<id column="emp_id" property="eid" />
+		<result column="emp_name" property="ename" />
+		<result column="emp_salary" property="salary" />
+		<result column="emp_age" property="age" />
+		<association property="dept" javaType="Dept">
+			<id column="dept_id" property="did" />
+			<result column="dept_name" property="dname" />
+		</association>
+	</resultMap>
+	动态sql
+	sql片段
+	<sql id="QUERY">
+		select e.emp_id as emp_id,e.emp_name as
+		emp_name,e.emp_salary as emp_salary,e.emp_age as emp_age,
+		d.dept_id as
+		dept_id,d.dept_name as dept_name
+		from emp1 e left join dept d on
+		e.dept_id=d.dept_id
+	</sql>
+	<select id="selectAllEmp" resultMap="empMap">
+		<include refid="QUERY" />
+		<trim prefix="where" prefixOverrides="and">
+			<if test="name!=null">
+				<if test="edname=='ename'">根据员工名字模糊查询
+					e.emp_name like '%'||#{name}||'%'
+				</if>
+				<if test="edname=='dname'">g根据部门名称模糊查询
+					and d.dept_name like '%'||#{name}||'%'
+				</if>
+			</if>
+			<if test="salary!=null">
+				<if test="greatOrLess==0">数据>salary
+					and e.emp_salary &gt; #{salary}
+				</if>
+				<if test="greatOrLess==1">数据<salary
+					and e.emp_salary &lt; #{salary}
+				</if>
+			</if>
+		</trim>
+		select e.emp_id as emp_id,e.emp_name as emp_name,e.emp_salary as emp_salary,e.emp_age 
+			as emp_age, d.dept_id as dept_id,d.dept_name as dept_name from emp1 e left 
+			join dept d on e.dept_id=d.dept_id
+
+		select ip.p_id as pid,ip.name as pname,ip.sex as psex,ip.mobile as 
+			pmobile, ic.card_id as cid,ic.street as cstreet from id_person ip left join 
+			id_card ic on ip.card_id=ic.card_id where p_id=#{id}
+	</select>
+	<select id="selectByEid" resultMap="empMap">
+		select e.emp_id as emp_id,e.emp_name as emp_name,e.emp_salary as emp_salary,e.emp_age 
+			as emp_age, d.dept_id as dept_id,d.dept_name as dept_name from emp1 e left 
+			join dept d on e.dept_id=d.dept_id
+		<include refid="QUERY" />
+		where e.emp_id=#{eid}
+	</select>
+	<insert id="insertEmp">
+		insert into dept values(#{did},#{dname})
+		insert into emp1
+		values(emp1_seq.nextval,#{ename},#{salary},#{age},#{dept.did})
+	</insert>
+	<update id="updateEmp">
+		update dept set dept_id=#{did},dept_name=#{dname} where dept_id=#{did}
+		update emp1 set
+		<trim prefix="set" suffixOverrides=",">
+			<if test="ename!=null">emp_name=#{ename},</if>
+			<if test="salary!=null">emp_salary=#{salary},</if>
+			<if test="age!=null">emp_age=#{age},</if>
+			<if test="did!=null">edept_did=#{did},</if>
+		</trim>
+		emp_name=#{ename},emp_salary=#{salary},emp_age=#{age},dept_id=#{dept.did}
+		where emp_id=#{eid}
+	</update>
+	<delete id="deleteEmp">
+		delete from emp1 where emp_id=#{eid}
+	</delete>
+</mapper> -->

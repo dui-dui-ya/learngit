@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<include file="com/baizhi/chenly/struts/category-struts.xml"></include>
+	<include file="com/baizhi/chenly/struts/book-struts.xml"></include>
+	<include file="com/baizhi/chenly/struts/cart-struts.xml"></include>
+	<include file="com/baizhi/chenly/struts/order-struts.xml"></include>
+	<include file="com/baizhi/chenly/struts/address-struts.xml"></include>
+	<include file="com/baizhi/chenly/struts/user-struts.xml"></include>
+</struts>

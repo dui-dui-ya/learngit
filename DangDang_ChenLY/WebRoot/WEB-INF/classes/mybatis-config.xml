@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 读取指定资源的数据 -->
+	<properties resource="db.properties"></properties>
+	
+	<!-- 为实体类的全限定名起别名 -->
+	<typeAliases>
+		<typeAlias type="com.baizhi.chenly.entity.Category" alias="Category"/>
+		<typeAlias type="com.baizhi.chenly.entity.Book" alias="Book"/>
+		<typeAlias type="com.baizhi.chenly.entity.OrderItem" alias="OrderItem"/>
+		<typeAlias type="com.baizhi.chenly.entity.Order" alias="Order"/>
+		<typeAlias type="com.baizhi.chenly.entity.Address" alias="Address"/>
+		<typeAlias type="com.baizhi.chenly.entity.User" alias="User"/>
+	</typeAliases>
+	<!-- 注册分页的jar包 -->
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+	</plugins>
+	<!-- <plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor" ></plugin>
+	</plugins>
+	 -->
+	<!-- 配置mybatis运行环境的相关参数 -->
+	<environments default="oracle">
+		<environment id="oracle">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="${oracle.driver}"/>
+				<property name="url" value="${oracle.url}"/>
+				<property name="username" value="${oracle.username}"/>
+				<property name="password" value="${oracle.password}"/>
+			</dataSource>
+		</environment>
+	</environments>	
+	
+	<!-- 注册XxxDAOMapper.xml文件 -->
+	<mappers>
+		<mapper resource="com/baizhi/chenly/mapper/CategoryDaoMapper.xml"/>
+		<mapper resource="com/baizhi/chenly/mapper/BookDaoMapper.xml"/>
+		<mapper resource="com/baizhi/chenly/mapper/OrderDaoMapper.xml"/>
+		<mapper resource="com/baizhi/chenly/mapper/OrderItemDaoMapper.xml"/>
+		<mapper resource="com/baizhi/chenly/mapper/AddressDaoMapper.xml"/>
+		<mapper resource="com/baizhi/chenly/mapper/UserDaoMapper.xml"/>
+	</mappers>
+</configuration>
